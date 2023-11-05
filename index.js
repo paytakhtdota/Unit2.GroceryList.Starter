@@ -24,10 +24,10 @@ function logItemNames() {
  * @param {number} id
  * @returns {{id: number, name: string, price: number, category: string, inventory: number}} item
  */
-function findItemById(id) {
+function findItemById(userPrompt) {
   // TODO: Use the .find() method to return the item who's id matches the passed in id
-  const findItem=items.find(item => item.id === id);
-  return findItem;
+  const findItemViaId=items.find(item => item.id === userPrompt);
+  return findItemViaId;
 }
 
 /**
@@ -42,7 +42,7 @@ function capitalizeNames() {
       name: item.name.toUpperCase(),
     };
   });
-  return JSON.stringify(capitalizedItems);  }
+  return JSON.stringify(capitalizedItems,null,1);  }
 /**
  * @returns {number} the sum of all inventory items
  */
@@ -61,7 +61,11 @@ function calculateTotalInventory() {
  */
 function calculateAllInventoryPrice() {
   // TODO Use the .reduce() method to return the total price of all the items in inventory
- 
+  const calculateInventory=[];
+  items.forEach(item => {
+    calculateInventory.push(item.price);
+  });
+  return calculateInventory.reduce((x,y) => x+y);
 }
 
 /**
@@ -70,6 +74,9 @@ function calculateAllInventoryPrice() {
  */
 function getItemPriceByName(name) {
   // TODO: Use your knowledge of objects and arrays to get the price of the item passed in
+const findPriceByName = items.find(item => item.name == name);
+return findPriceByName.price;
+
 }
 
 /**
@@ -103,13 +110,10 @@ const idArr = ids.split(", ");
 idArr.forEach((id) => cart.push(id));
 console.log(`The names of all the items are: `);
 logItemNames();
-const itemId = prompt("enter the id of an item you are trying to find", "1");
+let itemId = prompt("enter the id of an item you are trying to find", "1");
+itemId = +itemId;
 console.log(
-  `The item with id ${itemId} is  ${JSON.stringify(
-    findItemById(+itemId),
-    null,
-    2
-  )}`
+  `The item with id ${itemId} is  ${JSON.stringify(findItemById(itemId), null,2)}`
 );
 console.log(
   "We can map over an array and return a new array with the names capitalized like so: ",
