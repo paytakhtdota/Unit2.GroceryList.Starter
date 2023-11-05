@@ -15,9 +15,9 @@ const cart = [];
 
 function logItemNames() {
   //TODO: use the .forEach() method to log out the name of each item
- items.forEach((item,index) =>{
-  console.log(index + 1, item.name);
- });
+  items.forEach((item, index) => {
+    console.log("ID:" + item.id, ">>> " + item.name);
+  });
 }
 
 /**
@@ -26,7 +26,7 @@ function logItemNames() {
  */
 function findItemById(userPrompt) {
   // TODO: Use the .find() method to return the item who's id matches the passed in id
-  const findItemViaId=items.find(item => item.id === userPrompt);
+  const findItemViaId = items.find(item => item.id === userPrompt);
   return findItemViaId;
 }
 
@@ -42,18 +42,19 @@ function capitalizeNames() {
       name: item.name.toUpperCase(),
     };
   });
-  return JSON.stringify(capitalizedItems,null,1);  }
+  return JSON.stringify(capitalizedItems, null, 1);
+}
 /**
  * @returns {number} the sum of all inventory items
  */
 
 function calculateTotalInventory() {
   // TODO Use the .reduce() method to return the total number of items in inventory
-  const calculateInventory=[];
+  const calculateInventory = [];
   items.forEach(item => {
     calculateInventory.push(item.inventory);
   });
-  return calculateInventory.reduce((x,y) => x+y);
+  return calculateInventory.reduce((x, y) => x + y);
 }
 
 /**
@@ -61,11 +62,11 @@ function calculateTotalInventory() {
  */
 function calculateAllInventoryPrice() {
   // TODO Use the .reduce() method to return the total price of all the items in inventory
-  const calculateInventory=[];
+  const calculateInventory = [];
   items.forEach(item => {
     calculateInventory.push(item.price);
   });
-  return calculateInventory.reduce((x,y) => x+y);
+  return calculateInventory.reduce((x, y) => x + y);
 }
 
 /**
@@ -74,8 +75,8 @@ function calculateAllInventoryPrice() {
  */
 function getItemPriceByName(name) {
   // TODO: Use your knowledge of objects and arrays to get the price of the item passed in
-const findPriceByName = items.find(item => item.name == name);
-return findPriceByName.price;
+  const findPriceByName = items.find(item => item.name == name);
+  return findPriceByName.price;
 
 }
 
@@ -85,25 +86,34 @@ return findPriceByName.price;
  */
 function filterItemsByCategoryId(categoryId) {
   // TODO: use the .filter() method to filter out all items which don't belong the passed in category
-  const filterResult = items.filter(item => item.categoryId===categoryId);
-//  function checkCategory(categoryId){
- //   categoryId === items.categoryId;
- //   return items.name;
-//  }
-  
-  return JSON.stringify(filterResult,null,2);
+  const filterResult = items.filter(item => item.categoryId === categoryId);
+  return JSON.stringify(filterResult, null, 2);
 }
 
 function logCartItems() {
-  // TODO: Loop through your cart and use the indexes to log the names of all items in your cart
+  //const parsedCart = cart.map(item => parseInt(item));
+  function itemNameLoger(id) {
+    let myResult = items.find(item => item.id === id);
+    return myResult.name;
+  }
+  //parsedCart.forEach(item => {
+  cart.forEach(item => {
+    console.log(itemNameLoger(+item));
+  });
 }
-
 /**
  * @returns { number } returns the total price of items in your cart
  */
 function calculateTotalCartPrice() {
+  let itemsPrice = [];
   // TODO: Loop through your cart and return the total price of all items in your cart
-}
+  function itemPriceLoger(id) {
+    let finderResult = items.find(item => item.id === id);
+    itemsPrice.push(finderResult.price);
+  }
+  cart.forEach(item => itemPriceLoger(+item));
+  return (itemsPrice.reduce((x,y) => x+y));
+  }
 
 // --------------------- DO NOT CHANGE THE CODE BELOW ------------------------ //
 
@@ -120,7 +130,7 @@ logItemNames();
 let itemId = prompt("enter the id of an item you are trying to find", "1");
 itemId = +itemId;
 console.log(
-  `The item with id ${itemId} is  ${JSON.stringify(findItemById(itemId), null,2)}`
+  `The item with id ${itemId} is  ${JSON.stringify(findItemById(itemId), null, 2)}`
 );
 console.log(
   "We can map over an array and return a new array with the names capitalized like so: ",
