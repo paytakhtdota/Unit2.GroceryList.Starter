@@ -42,13 +42,18 @@ function capitalizeNames() {
       name: item.name.toUpperCase(),
     };
   });
-  console.log(JSON.stringify(capitalizedItems));  }
+  return JSON.stringify(capitalizedItems);  }
 /**
  * @returns {number} the sum of all inventory items
  */
 
 function calculateTotalInventory() {
   // TODO Use the .reduce() method to return the total number of items in inventory
+  const calculateInventory=[];
+  items.forEach(item => {
+    calculateInventory.push(item.inventory);
+  });
+  return calculateInventory.reduce((x,y) => x+y);
 }
 
 /**
@@ -56,6 +61,7 @@ function calculateTotalInventory() {
  */
 function calculateAllInventoryPrice() {
   // TODO Use the .reduce() method to return the total price of all the items in inventory
+ 
 }
 
 /**
