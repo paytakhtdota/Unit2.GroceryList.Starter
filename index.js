@@ -85,6 +85,13 @@ return findPriceByName.price;
  */
 function filterItemsByCategoryId(categoryId) {
   // TODO: use the .filter() method to filter out all items which don't belong the passed in category
+  const filterResult = items.filter(item => item.categoryId===categoryId);
+//  function checkCategory(categoryId){
+ //   categoryId === items.categoryId;
+ //   return items.name;
+//  }
+  
+  return JSON.stringify(filterResult,null,2);
 }
 
 function logCartItems() {
